@@ -12,7 +12,7 @@
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
-    "run-thread": ""
+    "run-thread": "nodemon index.ts"
   },
   "repository": {
     "type": "git",
