@@ -1,4 +1,10 @@
 import { ThreadDataType } from "../types";
+import { AES } from 'crypto-ts';
+import dotenv from 'dotenv';
+import { sortThread } from "./sorts";
+
+// configuring dotenv usage globally here
+dotenv.config();
 
 function linearExecution(threads: Array<ThreadDataType>): Array<ThreadDataType> {
   
@@ -21,22 +27,24 @@ function linearExecution(threads: Array<ThreadDataType>): Array<ThreadDataType> 
   // compute sizes of all threads
   threads.map((thread: ThreadDataType, threadIndex: number) => {
     computedThreads.push({
-      "computation-hash": new Crypto().randomUUID() as string,
+      "computation-hash": AES.encrypt(
+          JSON.stringify(thread), 
+          process.env.ENCRYPTION_SECRET as string
+        ).toString(),
       "computation-size": computeThreadSize(thread) as number,
       "computational-index (before-runtime)": threadIndex,
       "thread-data": thread
     });
   });
 
+  console.log("threads with their respective computational size", computedThreads);
+
   // sorting from lowest to highest size for linear execution
-  computedThreads.map((computedThread: {
-    "computation-hash": string;
-    "computation-size": number;
-    "computational-index (before-runtime)": number;
-    "thread-data": ThreadDataType
-  }, computedThreadIndex: number) => {
-    // TODO: FILTER THE THREADS ACCORDING TO THEIR MEMORY SIZES (To be continued)
-  });
+  sortThread({
+    threads: computedThreads
+  })
+
+  return [];
 }
 
 function computeThreadSize(thread: ThreadDataType): number {

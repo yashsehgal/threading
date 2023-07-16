@@ -1,4 +1,5 @@
 import { ThreadDataType } from "./types";
+import { linearExecution } from "./utils/linear-execution";
 
 // creating a thread to find the compute string length and get it's size
 const computeWordSize: ThreadDataType = {
@@ -30,3 +31,5 @@ const multithread = [computeWordSize, checkResult];
 
 // linear execution of threads according to small-to-high time approach
 console.log(multithread);
+
+const execution = linearExecution(multithread);

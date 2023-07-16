@@ -1,6 +1,8 @@
 {
   "dependencies": {
+    "@types/node": "^20.4.2",
     "chalk": "^5.3.0",
+    "crypto-ts": "^1.0.2",
     "dotenv": "^16.3.1",
     "nodemon": "^3.0.1",
     "ts-node": "^10.9.1",
